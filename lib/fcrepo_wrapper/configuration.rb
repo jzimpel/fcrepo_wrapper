@@ -68,7 +68,7 @@ module FcrepoWrapper
     end
 
     def managed?
-      File.exists?(instance_dir)
+      File.exist?(instance_dir)
     end
 
     # @return a list of arguments to pass to the JVM
