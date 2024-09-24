@@ -154,16 +154,16 @@ module FcrepoWrapper
     def clean!
       stop
       remove_instance_dir!
-      FileUtils.remove_entry(config.download_path) if File.exists?(config.download_path)
-      FileUtils.remove_entry(config.tmp_save_dir, true) if File.exists? config.tmp_save_dir
+      FileUtils.remove_entry(config.download_path) if File.exist?(config.download_path)
+      FileUtils.remove_entry(config.tmp_save_dir, true) if File.exist? config.tmp_save_dir
       md5.clean!
-      FileUtils.remove_entry(config.version_file) if File.exists? config.version_file
+      FileUtils.remove_entry(config.version_file) if File.exist? config.version_file
     end
 
     ##
     # Clean up any files in the fcrepo instance dir
     def remove_instance_dir!
-      FileUtils.remove_entry(config.instance_dir, true) if File.exists? config.instance_dir
+      FileUtils.remove_entry(config.instance_dir, true) if File.exist? config.instance_dir
     end
 
     def configure
@@ -195,11 +195,11 @@ module FcrepoWrapper
     protected
 
     def extracted?
-      File.exists?(config.binary_path) && extracted_version == config.version
+      File.exist?(config.binary_path) && extracted_version == config.version
     end
 
     def download
-      unless File.exists?(config.download_path) && md5.validate?(config.download_path)
+      unless File.exist?(config.download_path) && md5.validate?(config.download_path)
         Downloader.fetch_with_progressbar config.download_url, config.download_path
         md5.validate! config.download_path
       end
@@ -209,7 +209,7 @@ module FcrepoWrapper
     private
 
     def extracted_version
-      File.read(config.version_file).strip if File.exists? config.version_file
+      File.read(config.version_file).strip if File.exist? config.version_file
     end
 
     def extracted_version=(version)
